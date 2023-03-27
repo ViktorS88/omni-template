@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  omni_dev:
+    container_name: omni_dev
+    hostname: omni_dev
+#    command: bash -c "rm -rf /usr/node_app/app/node_modules/* && nodemon index.js"
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/usr/node_app/app
+#      - exclude:/usr/node_app/app/node_modules/
+    ports:
+      - 8095:8080
+      - 8096:8000
+    env_file:
+      - env/.env
+      - env/.env.development
+
+#volumes:
+#  exclude:
+
+

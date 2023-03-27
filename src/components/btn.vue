@@ -1,0 +1,16 @@
+<template>
+  <button type="button">
+  </button>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+  }
+}
+</script>
+
+<style>
+
+</style>

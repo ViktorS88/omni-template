@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  omni_prod:
+    container_name: omni_prod
+    hostname: omni_prod
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.prod
+    volumes:
+      - .:/usr/node_app/app
+    env_file:
+      - ./env/.env.production
+
+  omni_nginx:
+  # запускает сервер nginx для готовой сборки для build
+    image: nginx
+    container_name: omni_nginx
+    hostname: omni_nginx
+    volumes:
+      - ./dist/prod:/home/app/web/dist/
+      - ./nginx:/etc/nginx
+    ports:
+#      - 9444:9443
+      - 9444:8080
+    expose:
+      - 9080
+      - 9457
+    depends_on:
+      - omni_prod
+    networks:
+      - nginx_proxy_https_network
+
+
+networks:
+  nginx_proxy_https_network:
+    external: true
+
+
